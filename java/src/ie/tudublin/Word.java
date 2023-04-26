@@ -11,9 +11,27 @@ public class Word {
         this.list = new ArrayList<>();
     }
 
+    public Follow findFollow(String str){
+        for(Follow follow : list){
+            if(follow.getWord().matches(str)){
+                return follow;
+            }
+        }
+        return null;
+    }
+
+    public String printFollows(){
+        String allFollows = "";
+        for(Follow follow : list){
+            allFollows += follow.toString() + " ";
+        }
+
+        return allFollows;
+    }
+
     @Override
     public String toString() {
-        return "Word [word=" + word + ", list=" + list + "]";
+        return word + ": " +  printFollows();
     }
 
     public String getWord() {
