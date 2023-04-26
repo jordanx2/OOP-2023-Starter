@@ -6,8 +6,8 @@ import processing.core.PApplet;
 
 public class DANI extends PApplet {
 
+	ArrayList<Word> allWords = new ArrayList<>();
 	
-
 	public void settings() {
 		size(1000, 1000);
 		//fullScreen(SPAN);
@@ -22,14 +22,20 @@ public class DANI extends PApplet {
 
 	public void loadFile(){
 		String[] line = loadStrings("small.txt"); // Load a text file into a String array
-		
+
 		for(int i = 0; i < line.length; i++){
 			String[] words = line[i].split(" ");
 			for(int j = 0; j < words.length; j++){
 				words[j] = words[j].replaceAll("[^\\w\\s]",""); // Remove punction characters
 				words[j] = words[j].toLowerCase();
-				System.out.println(words[j]);
+				allWords.add(new Word(words[j]));
+
 			}
+		}
+
+
+		for(Word w : allWords){
+			System.out.println(w);
 		}
 	}
 

@@ -6,9 +6,9 @@ public class Word {
     private String word;
     private ArrayList<Follow> list;
 
-    public Word(String word, ArrayList<Follow> list) {
+    public Word(String word) {
         this.word = word;
-        this.list = list;
+        this.list = new ArrayList<>();
     }
 
     @Override
