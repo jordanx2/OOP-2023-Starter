@@ -12,16 +12,46 @@ public class DANI extends PApplet {
 		size(1000, 1000);
 		//fullScreen(SPAN);
 	}
-
-    String[] sonnet;
+	String[] sonnet = new String[14];
 
     public String[] writeSonnet()
     {
-        return null;
+		String[] son = new String[14];
+		int numLines = 14;
+		int i = 0;
+		int j = 0;
+		String sentence = "";
+		
+		while(i < numLines){
+			Word randomWord = allWords.get((int)(random(0, allWords.size() - 1)));
+			randomWord = findWord(randomWord.getWord());
+			sentence += randomWord.getWord();
+
+			if(!randomWord.isFollowsEmpty()){
+				Word s = randomWord;
+				inner: while(j < 8){
+					Follow follow = s.getList().get((int) (random(0, s.getList().size())));
+					sentence += " " + follow.getWord();
+					s = findWord(follow.getWord());
+					if(s == null || s.isFollowsEmpty()){	
+						break inner;
+					}
+					j++;
+				}	
+				j = 0;
+			}
+
+			son[i] = sentence;
+			sentence = "";
+			i++;
+
+		}
+
+        return son;
     }
 
 	public void loadFile(){
-		String[] line = loadStrings("small.txt"); // Load a text file into a String array
+		String[] line = loadStrings("shakespere.txt"); // Load a text file into a String array
 
 		for(int i = 0; i < line.length; i++){
 			String[] words = line[i].split(" ");
@@ -34,7 +64,8 @@ public class DANI extends PApplet {
 				}
 				if(j != words.length - 1){
 					updateFollow(words[j], words[j + 1].toLowerCase().replaceAll("[^\\w\\s]",""));
-				} 
+				}
+
 
 				j++;
 			}
@@ -83,14 +114,18 @@ public class DANI extends PApplet {
 	}
 
 	public void setup() {
+		background(0);
 		colorMode(HSB);
 		loadFile();
 		printModel();
-       
+		sonnet = writeSonnet();
+		
 	}
 
 	public void keyPressed() {
-
+		if(keyCode == ' '){
+			sonnet = writeSonnet();
+		}
 	}
 
 	float off = 0;
@@ -102,6 +137,15 @@ public class DANI extends PApplet {
 		noStroke();
 		textSize(20);
         textAlign(CENTER, CENTER);
+		translate(width / 2, height / 2);
+		translate(0, -200);
+		int increment = 0;
+		for(String s : sonnet){
+			text(s, 0, increment );
+			increment += 25;
+
+		}
+
         
 	}
 }

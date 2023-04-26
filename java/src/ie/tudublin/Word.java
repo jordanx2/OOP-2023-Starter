@@ -29,6 +29,10 @@ public class Word {
         return allFollows;
     }
 
+    public boolean isFollowsEmpty(){
+        return list.size() == 0;
+    }
+
     @Override
     public String toString() {
         return word + ": " +  printFollows();
