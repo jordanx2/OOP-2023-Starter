@@ -117,8 +117,14 @@ public class DANI extends PApplet {
 		background(0);
 		colorMode(HSB);
 		loadFile();
+		System.out.println("PRINTING MODEL....");
 		printModel();
 		sonnet = writeSonnet();
+
+		System.out.println("\nWRITING SONNET....");
+		for(String s: sonnet){
+			System.out.println(s);
+		}
 		
 	}
 
