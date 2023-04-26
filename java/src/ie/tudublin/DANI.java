@@ -28,7 +28,9 @@ public class DANI extends PApplet {
 			for(int j = 0; j < words.length; j++){
 				words[j] = words[j].replaceAll("[^\\w\\s]",""); // Remove punction characters
 				words[j] = words[j].toLowerCase();
-				allWords.add(new Word(words[j]));
+				if(!findWord(words[j])){
+					allWords.add(new Word(words[j]));
+				}
 
 			}
 		}
@@ -37,6 +39,16 @@ public class DANI extends PApplet {
 		for(Word w : allWords){
 			System.out.println(w);
 		}
+	}
+
+	public boolean findWord(String str){
+		for(Word w : allWords){
+			if(w.getWord().matches(str)){
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public void setup() {
